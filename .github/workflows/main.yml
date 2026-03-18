@@ -1,0 +1,66 @@
+name: Update NekoBox Config
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # каждый день в 00:00 UTC
+  workflow_dispatch:
+
+jobs:
+  update-config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Download latest server list
+        run: |
+          curl -sL https://github.com/Epodonios/v2ray-configs/raw/main/All_Configs_Sub.txt > temp_config.txt
+
+      - name: Convert to NekoBox YAML
+        run: |
+          python3 <<'EOF'
+import yaml
+
+with open("temp_config.txt", "r", encoding="utf-8") as f:
+    lines = f.read().splitlines()
+
+proxies = []
+for i, line in enumerate(lines):
+    proxies.append({
+        "name": f"Node {i+1}",
+        "type": "vmess",
+        "server": line.split()[0] if line else "127.0.0.1",
+        "port": int(line.split()[1]) if len(line.split())>1 else 443,
+        "uuid": line.split()[2] if len(line.split())>2 else "00000000-0000-0000-0000-000000000000",
+        "alterId": 0,
+        "cipher": "auto"
+    })
+
+config = {
+    "mixed-port": 7890,
+    "allow-lan": True,
+    "mode": "rule",
+    "proxies": proxies,
+    "proxy-groups": [
+        {
+            "name": "🚀 Proxy",
+            "type": "select",
+            "proxies": [p["name"] for p in proxies]
+        }
+    ],
+    "rules": [
+        "MATCH,🚀 Proxy"
+    ]
+}
+
+with open("config.yaml", "w", encoding="utf-8") as f:
+    yaml.dump(config, f, allow_unicode=True)
+EOF
+
+      - name: Commit and push
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@github.com"
+          git add config.yaml
+          git commit -m "Auto-update config" || echo "No changes"
+          git push
