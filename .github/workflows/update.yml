@@ -1,0 +1,56 @@
+name: Update Subscription
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Скачать репозиторий
+        uses: actions/checkout@v3
+
+      - name: Скачать подписку
+        run: |
+          curl -L "https://raw.githubusercontent.com/aiboboxx/v2rayfree/main/v2" -o nodes.txt
+
+      - name: Сделать простой YAML
+        run: |
+          echo "mixed-port: 7890" > config.yaml
+          echo "allow-lan: true" >> config.yaml
+          echo "mode: rule" >> config.yaml
+          echo "proxies:" >> config.yaml
+
+          i=1
+          while read line; do
+            echo "  - name: node-$i" >> config.yaml
+            echo "    type: ss" >> config.yaml
+            echo "    server: 1.1.1.1" >> config.yaml
+            echo "    port: 443" >> config.yaml
+            echo "    cipher: aes-128-gcm" >> config.yaml
+            echo "    password: test" >> config.yaml
+            i=$((i+1))
+          done < nodes.txt
+
+          echo "proxy-groups:" >> config.yaml
+          echo "  - name: 🚀 Proxy" >> config.yaml
+          echo "    type: select" >> config.yaml
+          echo "    proxies:" >> config.yaml
+
+          for j in $(seq 1 $i); do
+            echo "      - node-$j" >> config.yaml
+          done
+
+          echo "rules:" >> config.yaml
+          echo "  - MATCH,🚀 Proxy" >> config.yaml
+
+      - name: Сохранить изменения
+        run: |
+          git config --global user.name "bot"
+          git config --global user.email "bot@github.com"
+          git add config.yaml
+          git commit -m "update" || echo "no changes"
+          git push
