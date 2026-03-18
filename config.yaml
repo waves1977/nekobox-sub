@@ -3,7 +3,7 @@ allow-lan: true
 mode: rule
 
 proxies:
-  - name: test
+  - name: "Safe Node"
     type: ss
     server: 1.1.1.1
     port: 443
@@ -14,7 +14,7 @@ proxy-groups:
   - name: "🚀 Proxy"
     type: select
     proxies:
-      - test
+      - Safe Node
 
 rules:
   - MATCH,🚀 Proxy
