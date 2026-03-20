@@ -1,7 +1,4 @@
 hy2://Telegram--%3E%40Ln2Ray@gavazn.lnmarketplace.net:45000/?insecure=1&sni=gavazn.55994421.xyz&obfs=salamander&obfs-password=Telegram--%3E%40Ln2Ray#none
-trojan://ZY07256934@delicate-buck.rooster465.autos:443/?type=tcp&security=tls#%F0%9F%87%B8%F0%9F%87%AC%5BBy%20EbraSha%5D%20trojan-SG%20%F0%9F%94%92
-trojan://ZY07256934@free-duckling.rooster465.autos:443/?type=tcp&security=tls#%F0%9F%87%B8%F0%9F%87%AC%5BBy%20EbraSha%5D%20trojan-SG%20%F0%9F%94%92
-trojan://BxceQaOe@58.152.25.253:443/?type=tcp&security=tls&sni=t.me%2Fripaojiedian&allowInsecure=1#%F0%9F%87%AD%F0%9F%87%B0%5BBy%20EbraSha%5D%20trojan-HK%20%F0%9F%94%92
 hy2://Telegram--%3E%40Ln2Ray@gavazn.lnmarketplace.net:45000/?insecure=1&sni=gavazn.55994421.xyz&obfs=salamander&obfs-password=Telegram--%3E%40Ln2Ray#FR_1
 hy2://Telegram--%3E%40Ln2Ray@gavazn.lnmarketplace.net:45100/?insecure=1&sni=bing.com&obfs=salamander&obfs-password=Telegram--%3E%40Ln2Ray#FR_2
 hy2://Telegram--%3E%40Ln2Ray@gavazn.lnmarketplace.net:45200/?insecure=1&sni=google.com&obfs=salamander&obfs-password=Telegram--%3E%40Ln2Ray#FR_3
